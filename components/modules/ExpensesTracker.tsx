@@ -20,7 +20,7 @@ const ExpensesTracker: React.FC<ExpensesTrackerProps> = ({ user }) => {
 
   const handleAddExpense = (e: React.FormEvent) => {
     e.preventDefault();
-    const parsedAmount = parseFloat(amount);
+    const parsedAmount = parseFloat(amount.replace(',', '.'));
     if (description.trim() && !isNaN(parsedAmount) && parsedAmount > 0) {
       const newExpense: Transaction = {
         id: new Date().toISOString(),
@@ -63,7 +63,7 @@ const ExpensesTracker: React.FC<ExpensesTrackerProps> = ({ user }) => {
           <label htmlFor="expense-amount" className="block text-sm font-medium text-brand-brown/80 mb-1">Valor (R$)</label>
           <input
             id="expense-amount"
-            type="number"
+            type="text"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="25,50"

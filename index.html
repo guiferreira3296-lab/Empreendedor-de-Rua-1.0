@@ -38,8 +38,29 @@
   }
 }
 </script>
+<style>
+    @keyframes subtle-money-scroll {
+        from {
+            background-position: 0 0;
+        }
+        to {
+            background-position: 0 -200px; /* Controla a velocidade da rolagem */
+        }
+    }
+
+    body.app-background {
+        background-color: #f4e9d8;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 100 100'%3E%3Ctext x='10' y='30' font-family='Arial' font-size='20' fill='rgba(74, 44, 42, 0.05)' transform='rotate(-15, 10, 30)'%3E%24%3C/text%3E%3Ctext x='50' y='60' font-family='Arial' font-size='20' fill='rgba(74, 44, 42, 0.05)' transform='rotate(10, 50, 60)'%3ER%24%3C/text%3E%3Ctext x='80' y='15' font-family='Arial' font-size='20' fill='rgba(74, 44, 42, 0.05)' transform='rotate(20, 80, 15)'%3E%24%3C/text%3E%3Ctext x='25' y='85' font-family='Arial' font-size='20' fill='rgba(74, 44, 42, 0.05)' transform='rotate(-5, 25, 85)'%3ER%24%3C/text%3E%3C/svg%3E");
+        animation: subtle-money-scroll 10s linear infinite;
+        transition: animation-duration 0.5s ease-in-out;
+    }
+
+    body.goal-achieved {
+        animation-duration: 1s; /* Intensifica a velocidade da animação */
+    }
+</style>
 </head>
-  <body class="bg-brand-sand">
+  <body class="bg-brand-sand app-background">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

@@ -65,6 +65,21 @@ const ContentManager: React.FC<ContentManagerProps> = ({ user }) => {
       };
     }
   };
+
+  const handleDownloadVideo = (video: VideoContent) => {
+    fetch(video.videoData)
+      .then(res => res.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = video.fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      });
+  };
   
   return (
     <div className="bg-white p-6 rounded-lg shadow-md border border-brand-brown/20 animate-fade-in-up">
@@ -119,8 +134,19 @@ const ContentManager: React.FC<ContentManagerProps> = ({ user }) => {
         ) : (
           videos.map(video => (
             <div key={video.id} className="p-4 border border-brand-brown/20 rounded-lg">
-              <h5 className="font-bold text-brand-orange">{video.title}</h5>
-              <p className="text-sm text-brand-brown/80 my-2">{video.description}</p>
+              <div className="flex justify-between items-start">
+                <div>
+                    <h5 className="font-bold text-brand-orange">{video.title}</h5>
+                    <p className="text-sm text-brand-brown/80 my-2">{video.description}</p>
+                </div>
+                <button
+                    onClick={() => handleDownloadVideo(video)}
+                    className="ml-4 flex-shrink-0 bg-brand-green hover:bg-green-700 text-white font-bold py-1 px-3 text-sm rounded-md transition duration-300"
+                  >
+                    Baixar
+                </button>
+              </div>
+
               <video controls className="w-full max-w-sm rounded-md mt-2">
                 <source src={video.videoData} type={video.fileType} />
                 Seu navegador não suporta a tag de vídeo.
